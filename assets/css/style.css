@@ -1,5 +1,5 @@
 body{
-    background:rgb(255,200,100);
+    background:rgb(75,255,90 );
 }
 #header{
     width:80vw;
@@ -11,4 +11,52 @@ body{
     border-radius:20px;
     font-family: 'Squada One';
     color:white;
+}
+img{
+    height:300px;
+    width:300px;
+    border-radius:20px;
+}
+#main-game{
+    margin:20px auto;
+    width:80vw;
+    padding:40px 0;
+    text-align:center;
+    background:linear-gradient(-95deg, rgba(0,0,255,.5), rgba(0,0,50,.9));
+    border-radius:20px;
+}
+button{
+    border-radius:20px;
+    background:white;
+    margin:20px;
+    border:3px rgba(155,155,155,.2) solid;
+}
+button:focus{
+    outline:0;
+}
+button:active{
+    border:3px black solid;
+}
+#chatspace{
+    width:80vw;
+    border-radius:20px;
+    margin:auto;
+    text-align:center;
+    background:linear-gradient(105deg, lightblue, blue);
+    padding:30px;
+    
+}
+#text-box{
+    background:white;
+    color:black;
+    border-radius:10px;
+    width:60vw;
+    height:10vh;
+    margin:auto;
+    text-align:left;
+    padding:5px;
+    overflow-y:scroll;
+}
+input{
+    margin:10px;
 }
