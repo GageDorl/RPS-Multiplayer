@@ -117,10 +117,10 @@ database.ref('/RPSGame').on('value', function(snapshot){
     player2img=snapshot.val().player2img
   }
   if(turn==1){
-    $('#turn').text('Turn: player 1')
+    $('#turn').text('Turn: Player 1')
   }
   else if(turn==2){
-    $('#turn').text('Turn: player 2')
+    $('#turn').text('Turn: Player 2')
   }
   if(setStuff){
     choseWinner();
