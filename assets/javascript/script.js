@@ -19,7 +19,7 @@ var player2img;
 var rock = "<img src=assets\\images\\rock.png>";
 var paper = "<img src=assets\\images\\paper.png>";
 var scissors = "<img src=assets\\images\\scissors.png>"
-var mainGame = "<p id=turn>Turn: </p><button id=rock class=game><img src=assets\\images\\rock.png></button><button id=paper class=game><img src=assets\\images\\paper.png></button><button id=scissors class=game><img src=assets\\images\\scissors.png></button>";
+var setStuff=false;
 
 
 $(document).on('click','#submit',function(){
@@ -34,13 +34,8 @@ $(document).on('click','#clear',function(){
   });
 });
 $(document).on('click', '.game', function(){
-  console.log(turn)
+  
   if(turn==1){
-    database.ref('/RPSGame').set({
-      turn: turn+1,
-      player1:$(this).attr('id'),
-      player2:player2
-    })
     if($(this).attr('id')=='rock'){
       player1img=rock;
     }
@@ -50,13 +45,17 @@ $(document).on('click', '.game', function(){
     else{
       player1img=scissors;
     }
+    database.ref('/RPSGame').set({
+      turn: turn+1,
+      player1:$(this).attr('id'),
+      player2:player2,
+      thing:setStuff,
+      player1img:player1img
+      
+    })
+   
   }
   else if(turn==2){
-    database.ref('/RPSGame').set({
-      turn:1,
-      player2:$(this).attr('id'),
-      player1:player1
-    })
     if($(this).attr('id')=='rock'){
       player2img=rock;
     }
@@ -66,9 +65,20 @@ $(document).on('click', '.game', function(){
     else{
       player2img=scissors;
     }
-    console.log('this function')
-    choseWinner();
-    backToGame()
+    setStuff=true;
+    database.ref('/RPSGame').set({
+      turn:1,
+      player2:$(this).attr('id'),
+      player1:player1,
+      thing:setStuff,
+      player1img:player1img,
+      player2img:player2img
+    })
+    
+    console.log('this function');
+    
+    
+   
   }
 })
 function choseWinner(){
@@ -97,11 +107,24 @@ database.ref('/RPSGame').on('value', function(snapshot){
   turn=snapshot.val().turn;
   player1=snapshot.val().player1;
   player2=snapshot.val().player2;
+  if(snapshot.val().thing!=undefined){
+  setStuff=snapshot.val().thing;
+  }
+  if(snapshot.val().player1img!=undefined){
+    player1img=snapshot.val().player1img
+  }
+  if(snapshot.val().player2img!=undefined){
+    player2img=snapshot.val().player2img
+  }
   if(turn==1){
     $('#turn').text('Turn: player 1')
   }
   else if(turn==2){
     $('#turn').text('Turn: player 2')
+  }
+  if(setStuff){
+    choseWinner();
+    setStuff=false;
   }
 }, function(errorObject){
   console.log("The read failed: "+errorObject.code);
